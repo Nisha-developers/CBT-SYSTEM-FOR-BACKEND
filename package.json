@@ -1,28 +1,32 @@
 {
-  "name": "cbt-school-system-backend",
-  "version": "1.0.0",
-  "description": "CBT School System - backend API (Node.js/Express/MySQL)",
-  "main": "server.js",
-  "type": "commonjs",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "db:sync": "node src/database/sync.js"
-  },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^4.19.2",
-    "express-validator": "^7.2.0",
-    "jsonwebtoken": "^9.0.2",
-    "mammoth": "^1.8.0",
-    "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
     "mysql2": "^3.24.5",
-    "pdf-parse": "^1.1.1"
+    "router": "^2.2.0"
   },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "devDependencies": {
     "nodemon": "^3.1.14"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nisha-developers/CBT-SYSTEM-FOR-BACKEND.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Nisha-developers/CBT-SYSTEM-FOR-BACKEND/issues"
+  },
+  "homepage": "https://github.com/Nisha-developers/CBT-SYSTEM-FOR-BACKEND#readme"
 }
