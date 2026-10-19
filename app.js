@@ -12,12 +12,21 @@ app.set('trust proxy', env.TRUST_PROXY);          // set to 1 when running behin
 app.disable('x-powered-by');
 app.use(helmet());
 
+
+const allowedOrigins = [
+  env.CLIENT_ORIGIN,
+  env.VERCEL_ORIGIN
+].filter(Boolean);
+
 app.use(cors({
-  origin: (origin, cb) => cb(null, !origin || env.CLIENT_ORIGIN.includes(origin)),   // our frontend only
-  credentials: true,                                                                // lets the refresh cookie travel
+  origin: (origin, cb) => {
+    cb(null, !origin || allowedOrigins.includes(origin));
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 
 app.use(cookieParser());
 // Small JSON bodies everywhere; only the school routes may carry a logo (base64 image).
