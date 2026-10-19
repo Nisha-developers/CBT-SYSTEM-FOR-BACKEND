@@ -13,6 +13,12 @@ const schema = z.object({
   DB_USER: z.string().min(1),
   DB_PASSWORD: z.string().default(''),
   DB_NAME: z.string().min(1),
+  CLIENT_ORIGIN: z.string().default('http://localhost:5173').transform(csv),
+VERCEL_ORIGIN: z.string().default('').transform(csv),
+
+COOKIE_SAMESITE: z.enum(['strict', 'lax', 'none']).default('strict'),
+COOKIE_SECURE: z.string().optional(),
+TRUST_PROXY: z.coerce.number().int().min(0).default(0),
 
   // Two different secrets, like the reference project: a stolen access token can never mint refresh tokens.
   ACCESS_TOKEN_SECRET: z.string().min(32, 'ACCESS_TOKEN_SECRET must be at least 32 characters'),
@@ -37,6 +43,7 @@ if (!parsed.success) {
   parsed.error.issues.forEach((i) => console.error(`  - ${i.path.join('.')}: ${i.message}`));
   process.exit(1);
 }
+
 
 const env = parsed.data;
 if (env.ACCESS_TOKEN_SECRET === env.REFRESH_TOKEN_SECRET) {
