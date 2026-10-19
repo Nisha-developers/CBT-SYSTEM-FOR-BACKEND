@@ -12,18 +12,24 @@ app.set('trust proxy', env.TRUST_PROXY);          // set to 1 when running behin
 app.disable('x-powered-by');
 app.use(helmet());
 
-
 const allowedOrigins = [
   env.CLIENT_ORIGIN,
   env.VERCEL_ORIGIN
 ].filter(Boolean);
 
+console.log('Allowed CORS origins:', allowedOrigins);
+
 app.use(cors({
   origin: (origin, cb) => {
-    cb(null, !origin || allowedOrigins.includes(origin));
+    if (!origin || allowedOrigins.includes(origin)) {
+      return cb(null, true);
+    }
+
+    console.error('Blocked CORS origin:', origin);
+    return cb(null, false);
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
